@@ -1,0 +1,10 @@
+- name: Elixir | requires install
+  sudo: true
+  yum: name={{ item }} state=present
+  with_items:
+    - "{{ elixir_requires }}"
+
+- name: Elixir | install
+  sudo: true
+  yum: name="elixir" state=present
+

@@ -1,0 +1,9 @@
+erlang_requires:
+  - gcc
+  - glibc-devel
+  - tar
+  - make
+  - ncurses-devel
+  - openssl-devel
+  - autoconf
+  - wget

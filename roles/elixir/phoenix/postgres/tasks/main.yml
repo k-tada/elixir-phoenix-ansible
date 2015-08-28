@@ -1,0 +1,45 @@
+- name: Postgres | check already installed
+  shell: which psql
+  register: which_psql
+  failed_when: which_psql.rc not in [0, 1]
+
+- name: Postgres | setup repo
+  sudo: true
+  lineinfile: >
+    dest={{ repo_file }}
+    line="[base]\nexclude=postgresql*"
+  when: which_psql.rc == 1
+
+- name: Postgres | setup repo
+  sudo: true
+  lineinfile: >
+    dest={{ repo_file }}
+    line="[updates]\nexclude=postgresql*"
+  when: which_psql.rc == 1
+
+- name: Postgres | package
+  sudo: true
+  shell: rpm -Uvh {{ rpm_url }}
+  ignore_errors: true
+  when: which_psql.rc == 1
+
+- name: Postgres | install
+  sudo: true
+  yum: name={{ item }} state=present
+  with_items:
+    - "{{ postgres_requires }}"
+  when: which_psql.rc == 1
+
+- name: Postgres | postgres setup
+  sudo: true
+  shell: service {{ service_name }} initdb
+
+- name: Postgres | postgres setup
+  sudo: true
+  shell: sudo chkconfig {{ service_name }} on
+
+- name: Postgres | postgres setup
+  sudo: true
+  shell: sudo service {{ service_name }} start
+
+

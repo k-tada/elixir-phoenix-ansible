@@ -1,0 +1,15 @@
+- hosts: vagrant
+  user: vagrant
+  roles:
+    - yum-update
+    - vim/ag-install
+    - vim/vim-install
+    - vim/vim-plugins-install
+    - vim/vimproc-install
+    - node
+    - node/npm
+    - elixir/erlang
+    - elixir
+    - elixir/phoenix/postgres
+    - elixir/phoenix
+

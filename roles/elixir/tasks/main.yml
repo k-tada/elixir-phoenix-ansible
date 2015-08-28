@@ -1,0 +1,40 @@
+- name: Elixir | check already installed
+  shell: which iex
+  register: which_iex
+  failed_when: which_iex.rc not in [0, 1]
+
+- name: Elixir | requires install
+  sudo: true
+  yum: name={{ item }} state=present
+  with_items:
+    - "{{ elixir_requires }}"
+
+- name: Elixir | check elixir downloaded
+  command: test -d /usr/local/src/elixir
+  register: elixir_downloaded
+  ignore_errors: yes
+
+- name: Elixir | download
+  sudo: true
+  shell: git clone https://github.com/elixir-lang/elixir.git chdir=/usr/local/src
+  when: elixir_downloaded|failed
+
+- name: Elixir | chmod
+  sudo: true
+  shell: chown -R vagrant:vagrant elixir chdir=/usr/local/src
+  when: which_iex.rc == 1
+
+- name: Elixir | install
+  shell: make clean test chdir=/usr/local/src/elixir
+  when: which_iex.rc == 1
+
+- name: Elixir | bashrc edit
+  lineinfile: >
+    dest=~/.bashrc
+    line="export PATH=/usr/local/src/elixir/bin:$PATH"
+  when: which_iex.rc == 1
+
+- name: Elixir | source bashrc
+  shell: source ~/.bashrc chdir=~/
+  when: which_iex.rc == 1
+
