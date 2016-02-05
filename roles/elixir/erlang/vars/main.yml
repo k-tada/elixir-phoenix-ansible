@@ -7,3 +7,4 @@ erlang_requires:
   - openssl-devel
   - autoconf
   - wget
+erlang_version: 18.2

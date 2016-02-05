@@ -30,25 +30,25 @@
   when: which_erl.rc == 1
 
 - name: Erlang | build erlang
-  shell: kerl build 17.4 build17.4 chdir=/usr/local/src
+  shell: kerl build {{ erlang_version }} build{{ erlang_version }} chdir=/usr/local/src
   when: which_erl.rc == 1
 
 - name: Erlang | make install dir
-  shell: mkdir -p ~/bin/erlang/17.4
+  shell: mkdir -p ~/bin/erlang/{{ erlang_version }}
   when: which_erl.rc == 1
 
 - name: Erlang | kerl install
-  shell: kerl install build17.4 ~/bin/erlang/17.4
+  shell: kerl install build{{ erlang_version }} ~/bin/erlang/{{ erlang_version }}
   when: which_erl.rc == 1
 
 - name: Erlang | kerl install
-  shell: . ~/bin/erlang/17.4/activate
+  shell: . ~/bin/erlang/{{ erlang_version }}/activate
   when: which_erl.rc == 1
 
 - name: Erlang | bashrc edit
   lineinfile: >
     dest=~/.bashrc
-    line=". ~/bin/erlang/17.4/activate"
+    line=". ~/bin/erlang/{{ erlang_version }}/activate"
   when: which_erl.rc == 1
 
 - name: Erlang | source bashrc

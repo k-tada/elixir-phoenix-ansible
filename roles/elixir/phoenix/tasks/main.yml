@@ -2,5 +2,5 @@
   shell: yes Y | mix local.hex
 
 - name: Phoenix | install
-  shell: yes Y | mix archive.install https://github.com/phoenixframework/phoenix/releases/download/v0.17.1/phoenix_new-0.17.1.ez
+  shell: yes Y | mix archive.install https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
 

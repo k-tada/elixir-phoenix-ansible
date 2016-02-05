@@ -32,7 +32,7 @@
 
 - name: Postgres | postgres setup
   sudo: true
-  shell: service {{ service_name }} initdb
+  shell: /usr/pgsql-9.3/bin/postgresql93-setup initdb
 
 - name: Postgres | postgres setup
   sudo: true

@@ -1,3 +1,4 @@
 ag_requires:
+  - automake
   - pcre-devel
   - xz-devel

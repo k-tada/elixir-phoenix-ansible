@@ -7,9 +7,9 @@
 # you're doing.
 Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "pure_centos65"
+  config.vm.box = "centos70"
 
-  config.vm.network "private_network", ip: "192.168.33.12"
+  config.vm.network "private_network", ip: "192.168.33.10"
 
   # Ansible
   config.vm.provision :ansible do |a|
